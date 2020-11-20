@@ -1,0 +1,35 @@
+关于spring-boot子模块项目集成jsp遇到的坑
+1、先创建webapp目录，然后在Moduls里面添加WEB，设置xml和webapp
+2、创建WEB-INF然后在创建对应的映射文件夹
+3、在配置文件配置jsp映射地址
+spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/jsp/
+      suffix: .jsp
+4、最关键和重要的
+因为是多模块方式创建Module，所以需要设置Working direcotry目录为Module的Working Dir。
+需要在项目运行的
+Working direcotry设置为：C:\work\project-work\test-work\wolf-spring-boot\wolfsty-01
+因为默认项目是根目录去找的，子模块项目文件是在子模块目录下面，在启动允许时，需要进行设置。
+5、pom配置关键
+<!-- servlet依赖. -->
+<dependency>
+    <groupId>javax.servlet</groupId>
+    <artifactId>javax.servlet-api</artifactId>
+    <!--<scope>provided</scope>必须打，否则允许没问题，无法访问，因为没包无法对jsp支持-->
+</dependency>
+<!-- JSTL (JSP standard Tag Library) JSP 标准标签库 -->
+<dependency>
+    <groupId>javax.servlet</groupId>
+    <artifactId>jstl</artifactId>
+</dependency>
+
+<!-- tomcat的支持.-->
+<!--注意：spring boot对jsp的支持不是很好，在使用spring boot自带tomcat的同时，还需要引入另外的一个tomcat，以来如下所示，且scope属性需要被注释掉 -->
+<!--注掉的原因是：maven默认scope是compile，表示打包时会把此包打入jar包中，而provided表示打包时不会打如jar包中，因为它默认是jar包中会提供，说白了就是你标注了provided就不会被打入jar包中，项目跑起来就肯定会有问题了 2019/12/4 -->
+<dependency>
+    <groupId>org.apache.tomcat.embed</groupId>
+    <artifactId>tomcat-embed-jasper</artifactId>
+    <!--<scope>provided</scope> 注意，这个scope需要被注释掉 必须打，否则允许没问题，无法访问，因为没包无法对jsp支持-->
+</dependency>

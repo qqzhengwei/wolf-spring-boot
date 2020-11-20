@@ -1,0 +1,10 @@
+spring:
+  data:
+    mongodb:
+      primary:
+        host: 101.132.99.21
+              port: 27019
+              database: tf_test_db
+              username: tfysy
+              password: aaaaa888
+              auto-index-creation: true

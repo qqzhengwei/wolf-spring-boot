@@ -1,0 +1,130 @@
+server:
+  #server.port定义启动后，应用程序端口，默认端口是8080
+  port: 9999
+  max-http-post-size: 100000
+#server.max-http-header-size=1024000
+
+spring:
+  data:
+    mongodb:
+      uri: mongodb://tfysy:ysy2020mdb%40@47.100.100.129:19560,47.100.98.203:19560,47.100.98.203:19560/tf_db?slaveOk=true&replicaSet=zypcy&write=1&readPreference=secondaryPreferred&connectTimeoutMS=300000
+      auto-index-creation: true
+
+spring:
+  data:
+    mongodb:
+      host: 47.100.100.129
+      port: 19560
+      database: tf_db
+      username: tfysy
+      password: ysy2020mdb@
+      auto-index-creation: true
+
+spring:
+  data:
+    mongodb:
+      host: 101.132.99.21
+      port: 27019
+      database: tf_test_db
+      username: tfysy
+      password: aaaaa888
+      auto-index-creation: true
+
+    #控制是否在一个连接时，系统会自动重试
+      #spring.data.mongodb.auto-connect-retry=true
+      #spring.data.mongodb.socket-keep-alive=true
+  #spring-data-redis配置
+  redis:
+    host: 101.132.194.124
+    port: 6392
+    password: ysy88888
+    timeout: 10000
+    database: 0
+    ##连接池
+    lettuce:
+      pool:
+        ##最大连接数
+        max-active: 8
+        #最大和最小空闲连接
+        max-idle: 4
+        min-idle: 0
+        ##连接的最大等待阻塞的时间
+        max-wait: 10000
+  mvc:
+    view:
+      prefix: /WEB-INF/jsp/
+      suffix: .jsp
+  datasource:
+      url: jdbc:mysql://106.14.120.252:3016/test?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&serverTimezone=Asia/Shanghai
+      hikari:
+            driver-class-name: com.mysql.cj.jdbc.Driver
+            #com.mysql.cj.jdbc.Driver com.mysql.jdbc.Driver
+            username: root
+            password: s&k8X&AL
+#database:
+#  driverName: com.mysql.jdbc.driver
+#  url:  jdbc:mysql://localhost:3306/wolf-db
+#  username: 112233
+#  pwd:  root
+
+mybatis:
+  mapper-locations:
+  type-aliases-package: com.example.entity
+
+#mybatis-plus
+mybatis-plus:
+  configuration:
+    # <!--是否开启自动驼峰命名规则（camel case）映射，即从经典数据库列名 A_COLUMN 到经典 Java 属性名 aColumn 的类似映射。-->
+    map-underscore-to-camel-case: true
+    #  <!-- 这个配置使全局的映射器启用或禁用缓存 -->
+    cache-enabled: true
+    # <!-- 全局启用或禁用延迟加载。当禁用时，所有关联对象都会即时加载 -->
+    lazy-loading-enabled: true
+    #   <!--是否允许单一语句返回多结果集（需要兼容驱动）。-->
+    multiple-result-sets-enabled: true
+    #   <!--使用列标签代替列名。-->
+    use-column-label: true
+    #<!--配置默认的执行器。SIMPLE 就是普通的执行器；REUSE 执行器会重用预处理语句（prepared statements）； BATCH 执行器将重用语句并执行批量更新。-->
+    default-executor-type: reuse
+    #  <!--设置超时时间，它决定驱动等待数据库响应的秒数。-->
+    default-statement-timeout: 25000
+    # 开发环境输出 查询结果日志
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  mapper-locations: classpath:mapping/**/*Mapper.xml
+  type-aliases-package: com.wolf.sty.entity
+  type-enums-package:  com.wolf.sty.enums
+  global-config:
+    db-config:
+      logic-delete-value:  "N"      #逻辑已删除值"'N'"
+      logic-not-delete-value: "Y"   #逻辑未删除值"'Y'"
+      id-type: id_worker_str
+
+#showSql
+logging:
+  level:
+    com:
+      example:
+        mapper : debug
+my:
+  redis:
+    jedis:
+      pool:
+        #最大连接数
+        max-active: 1024
+        #最大阻塞等待时间(负数表示没限制)
+        max-wait: 10000
+        #最大空闲
+        max-idle: 200
+        #最小空闲
+        min-idle: 0
+        testOnBorrow: true
+        testOnReturn: false
+    nodes: [
+       {
+          host: "101.132.194.124",
+          port: 6392,
+          password: ysy88888,
+          timeout: 20000
+       }
+    ]
+
